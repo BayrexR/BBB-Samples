@@ -39,7 +39,7 @@
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <h5 class="text-center">Select a sample</h5>
-                                        <select style="width: 80px" id="samp_select" name="Sample">
+                                        <select style="width: 80px" id="samp_select" name="Sample" onchange="update(this.value)">
                                         {% for d in dropDown %}
                                             <option value={{d[0]}}>{{d[0]}}</option>
                                         {% endfor %}                               

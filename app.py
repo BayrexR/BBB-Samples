@@ -319,7 +319,7 @@ def build():
     #Load the tables with data from csv files
     loadSamples()
     loadMetaD()
-    top10("BB_940")
+    # top10("BB_940")
 
 #================================
 #   Routes
