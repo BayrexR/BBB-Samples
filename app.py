@@ -236,14 +236,6 @@ class MetaD(db.Model):
 #   Helper functions
 #===============================
 
-
-#Global Variables
-top_otu_id = []
-top_otu_labels = []
-top_sample_values = []
-sample = "BB_940"
-
-
 #Get Top 10 values for plots
 def top10(sample):
     sample = sample
@@ -251,23 +243,35 @@ def top10(sample):
     top_otu_labels = []
     top_sample_values = []
 
+    all_otu_id = []
+    all_otu_labels = []
+    all_sample_values = []
+
     #Clean sample number input. Remove "BB_" 
     s = str(sample[3:])
     with engine.connect() as con:
         results = con.execute("SELECT otu_id, otu_label, `" + s + "` FROM samples ORDER BY `"+ s + "` DESC LIMIT 10")
-        
+        allResults = con.execute("SELECT otu_id, otu_label, `" + s + "` FROM samples WHERE `"+s+"` > 0")
         # results = db.session.query(Sanmple.otu_id, Sample.otu_label, Sample.s)
 
-    for r in results:
-    
+    for r in results:    
         top_otu_id.append(r["otu_id"])
         top_otu_labels.append(r["otu_label"])
         top_sample_values.append(r[s])
         #top_otu_id, top_otu_labels, top_sample_values
+
+    for r in allResults:
+        all_otu_id.append(r["otu_id"])
+        all_otu_labels.append(r["otu_label"])
+        all_sample_values.append(r[s])
+
     samp_data = [
         top_otu_id,
         top_otu_labels,
-        top_sample_values
+        top_sample_values,
+        all_otu_id,
+        all_otu_labels,
+        all_sample_values
     ]
     return samp_data
      
@@ -279,6 +283,12 @@ def getMeta(sample):
     with engine.connect() as con:
         metaData = con.execute("SELECT AGE, BBTYPE, ETHNICITY, LOCATION, sample FROM metad WHERE sample =" + s)
     return metaData
+
+#Get sample select dropdown values
+def getDropDown():
+    with engine.connect() as con:
+        dropDown = con.execute("SELECT sample FROM metad")
+    return dropDown
 
 
 
@@ -318,7 +328,9 @@ def build():
 #Root
 @app.route("/")
 def dashboard():
-    return render_template("index.html")
+    dropDown = getDropDown()
+    
+    return render_template("index.html", dropDown=dropDown)
 
 #Get Top ten sample data
 @app.route("/sample/<sample>")
@@ -337,14 +349,16 @@ def sample(sample):
             "type": "pie"
         }],
         "bubble_data": [{
-            "x": samp_data[0],
-            "y": samp_data[2],
-           " mode": "markers",
+            "x": samp_data[3],
+            "y": samp_data[5],
+            "mode": "markers",
             "marker": {
-                "size": samp_data[2],
-               " color": samp_data[0]
+                "size": samp_data[5],
+                "color": samp_data[3],
+                "opacity": .75
             },
-            "text": samp_data[1]
+            "text": samp_data[4],
+            "type": "scatter"
         }],
         "metadata": [dict(row) for row in metaData]
     }]
