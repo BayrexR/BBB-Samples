@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> 
+<html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Belly Button Biodiversity</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}"/>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+            
+            <div class="row"> <!--Begin Jumbotron Row-->
+                <div style="background-color: #6b8e23!important" class="jumbotron">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 class="text-center">Belly Button Biodiversity</h1>
+                            <h1 class="text-center">Dashboard</h1>
+                            <p class="text-center">Below you will find the top 10 bacteria samples taken from belly buttons. You can use the Sample Selector on the left to view sample source data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!--End Jumbotron Row-->
+
+            <div class="row"> <!--Begin Meta and Pie Row-->
+                <div class="col-lg-3">
+                    <div class="row">
+                        <div class="col-lg-12" id="select"></div>                        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" id="card"></div>
+                    </div>
+                </div>
+                <div class="col-lg-9" >
+                    <div id="pie"></div>
+                </div>
+            </div> <!--End Meta and Pie Row-->
+
+            <div class="row"><!--End Bubble Row-->
+                <div class="col-lg-12" >
+                    <div id="bubble"></div>
+                </div>
+            </div> <!--End Bubble Row-->
+        
+        </div> <!--End Main Container Div-->
+        
+        <!--Latest minified jquery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!-- minified d3.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+        <!-- minified plotly.js -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <!-- app.js source -->
+        <script src="{{ url_for('static', filename='assets/js/app.js') }}"></script>
+    </body>
+</html>
